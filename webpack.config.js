@@ -8,10 +8,11 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
         clean: true,
+        publicPath: '/'
     },
     devServer: {
         static: './dist',
-        port: 3000,
+        port: 3000
     },
     module: {
         rules: [
@@ -19,12 +20,12 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader',
+                    loader: 'babel-loader'
                 }
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
