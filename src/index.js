@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const cells = document.querySelectorAll('.cell');
         const randomIndex = Math.floor(Math.random() * cells.length);
         currentCell = cells[randomIndex];
-
         currentCell.appendChild(gnomeImg);
     }
 

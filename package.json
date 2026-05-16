@@ -18,9 +18,13 @@
     "eslint-plugin-import": "^2.32.0",
     "html-webpack-plugin": "^5.0.0",
     "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
     "style-loader": "^3.0.0",
     "webpack": "^5.0.0",
     "webpack-cli": "^5.0.0",
     "webpack-dev-server": "^4.0.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }
