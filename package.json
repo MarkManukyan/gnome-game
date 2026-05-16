@@ -1,21 +1,18 @@
 {
   "name": "gnome-game",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Игра 'Лови гнома'",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MarkManukyan/gnome-game.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/MarkManukyan/gnome-game/issues"
-  },
-  "homepage": "https://github.com/MarkManukyan/gnome-game#readme"
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.0.0",
+    "html-webpack-plugin": "^5.0.0",
+    "style-loader": "^3.0.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^5.0.0",
+    "webpack-dev-server": "^4.0.0"
+  }
 }

@@ -1,0 +1,62 @@
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+#score {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 5px;
+    margin: 0 auto;
+    width: fit-content;
+    border: 2px solid #333;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: #ffeb3b;
+    /* Яркий жёлтый */
+    border: 1px solid #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Стиль для «пойманного гнома» */
+.cell.caught {
+    background-color: #4CAF50 !important;
+    /* Зелёный */
+}
+
+/* Стиль для ячейки с гномом */
+.cell.gnome {
+    background-color: #FF5722 !important;
+    /* Оранжевый — гном здесь */
+    position: relative;
+}
+
+/* Добавляем изображение гнома (если есть) */
+.cell.gnome::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23FFC100" d="M12 2C8.69 2 6 4.69 6 8s2.69 6 6 6 6-2.69 6-6S15.31 2 12 2zm0 10c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>') no-repeat center;
+}
