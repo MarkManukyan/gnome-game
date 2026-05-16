@@ -1,84 +1,63 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM загружен, запускаем createGameBoard');
+    const BOARD_SIZE = 4;
+    const MOVE_INTERVAL = 2000;
 
-    let currentGnomeCell = null; // Хранит ID ячейки с гномом
-    let score = 0; // Счётчик пойманных гномов
+    let gnomeImg;
+    let currentCell;
+
+    function initGame() {
+        createGameBoard();
+        createGnomeCharacter();
+        placeGnomeRandomly();
+        startGnomeMovement();
+    }
 
     function createGameBoard() {
-        console.log('Функция createGameBoard вызвана');
         const board = document.getElementById('game-board');
 
-        if (!board) {
-            console.error('Элемент #game-board не найден в DOM!');
-            return;
-        }
-
-        console.log('Найдена доска, очищаем и создаём ячейки...');
-        board.innerHTML = '';
-
-        for (let i = 0; i < 16; i++) {
-            const cell = document.createElement('div');
-            cell.className = 'cell';
-            cell.id = `cell-${i}`;
-            cell.addEventListener('click', handleCellClick);
-            board.appendChild(cell);
-            console.log(`Создана ячейка ${i}`);
-        }
-
-        console.log('Все ячейки созданы, всего:', board.children.length);
-    }
-
-    // Функция обработки клика по ячейке
-    function handleCellClick(event) {
-        const cell = event.target;
-
-        // Проверяем, попал ли клик на гнома
-        if (cell === currentGnomeCell) {
-            // Успех! Гном пойман
-            cell.classList.add('caught');
-            score++;
-            updateScore();
-            console.log(`Гном пойман! Счёт: ${score}`);
-            hideGnome();
-            showGnome(); // Показываем гнома в новой ячейке
-        } else {
-            // Промах
-            console.log('Промах! Попробуйте ещё раз.');
+        for (let row = 0; row < BOARD_SIZE; row++) {
+            for (let col = 0; col < BOARD_SIZE; col++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.id = `cell-${row}-${col}`;
+                board.appendChild(cell);
+            }
         }
     }
 
-    // Показывает гнома в случайной ячейке
-    function showGnome() {
+    function createGnomeCharacter() {
+        gnomeImg = document.createElement('img');
+        gnomeImg.src = require('./assets/gnome.png');
+        gnomeImg.alt = 'Гном';
+        gnomeImg.className = 'gnome-character';
+    }
+
+    function placeGnomeRandomly() {
         const cells = document.querySelectorAll('.cell');
         const randomIndex = Math.floor(Math.random() * cells.length);
-        currentGnomeCell = cells[randomIndex];
-        currentGnomeCell.classList.add('gnome');
+        currentCell = cells[randomIndex];
+
+        currentCell.appendChild(gnomeImg);
     }
 
-    // Скрывает гнома (убирает класс)
-    function hideGnome() {
-        if (currentGnomeCell) {
-            currentGnomeCell.classList.remove('gnome');
-            currentGnomeCell = null;
-        }
+    function startGnomeMovement() {
+        setInterval(() => {
+            moveGnomeToRandomCell();
+        }, MOVE_INTERVAL);
     }
 
-    // Обновляет отображение счёта
-    function updateScore() {
-        const scoreElement = document.getElementById('score');
-        if (scoreElement) {
-            scoreElement.textContent = `Поймано гномов: ${score}`;
-        }
+    function moveGnomeToRandomCell() {
+        const cells = document.querySelectorAll('.cell');
+        let newCell;
+
+        do {
+            const randomIndex = Math.floor(Math.random() * cells.length);
+            newCell = cells[randomIndex];
+        } while (newCell === currentCell);
+
+        newCell.appendChild(gnomeImg);
+        currentCell = newCell;
     }
 
-    // Запускаем игру
-    createGameBoard();
-    updateScore(); // Инициализируем счёт
-    showGnome(); // Показываем первого гнома
-
-    // Каждые 2 секунды перемещаем гнома в другую ячейку
-    setInterval(() => {
-        hideGnome();
-        showGnome();
-    }, 2000);
+    initGame();
 });

@@ -25,10 +25,20 @@ module.exports = {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'images/[name][ext]'
+                    filename: 'assets/images/[name][ext]'
                 }
             }
         ]
+    },
+    loader: {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+            loader: 'babel-loader',
+            options: {
+                presets: ['@babel/preset-env']
+            }
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({
